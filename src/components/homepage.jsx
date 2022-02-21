@@ -28,7 +28,7 @@ export const HomePage = () => {
         onChange={(e) => {
           setQuerytext(e.target.value);
         }}
-        label="Search Hare"
+        label="Search Title"
         variant="filled"
       />
 
@@ -42,7 +42,12 @@ export const HomePage = () => {
         Search
       </Button>
       <br></br>
-      <p>Search Result can see below!</p>
+      <p>
+        Search Results can see below!{" "}
+        <a href="https://fast-reef-22226.herokuapp.com/data" target="blank">
+          Database
+        </a>
+      </p>
       <SuggestionItem />
     </div>
   );

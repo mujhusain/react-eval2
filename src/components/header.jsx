@@ -19,7 +19,7 @@ export const Navbar = () => {
 
   return (
     <div id="navbar">
-      <h3>Search Engine</h3>
+      <h4>Search Engine</h4>
       <hr />
     </div>
   );
