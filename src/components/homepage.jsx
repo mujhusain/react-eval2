@@ -1,33 +1,22 @@
 import * as React from "react";
-import Box from "@mui/material/Box";
 import TextField from "@mui/material/TextField";
 import Button from "@mui/material/Button";
 import { useState } from "react";
-import { useDispatch } from "react-redux";
-import { getSearchedData } from "../redux/actions";
 import { useSelector } from "react-redux";
-import { AlignItemsList } from "./searchresult";
+import { SuggestionItem } from "./searchresult";
+import { useDispatch } from "react-redux";
+import { setQuery, setResult } from "../redux/actions";
 
 export const HomePage = () => {
   const dispatch = useDispatch();
-  const data = useSelector((state) => state.reducer);
-  console.log(data);
+  const data = useSelector((state) => state.setDataReducer.data);
 
-  const [text, setText] = useState("");
+  const [query, setQuerytext] = useState("");
 
   const searchText = () => {
-    let url = new URL('https://example.com/search?q="text');
-    let params = new URLSearchParams(url.search);
-    params.append("q", text);
-    console.log(params);
-
-    const result = data.filter((a) => a.title == text);
-    console.log("searchResult:", result);
-    {
-      result.map((a) => {
-        // <AlignItemsList avtarimages={a.url} title={a.title} author={a.author} desc={a.description} />
-      });
-    }
+    let list = data.filter((a) => a.title == query);
+    dispatch(setQuery(query));
+    dispatch(setResult(list));
   };
 
   return (
@@ -36,10 +25,13 @@ export const HomePage = () => {
       <TextField
         className="search-box"
         id="filled-basic"
-        onChange={(e) => setText(e.target.value)}
+        onChange={(e) => {
+          setQuerytext(e.target.value);
+        }}
         label="Search Hare"
         variant="filled"
       />
+
       <Button
         className="search"
         onClick={() => searchText()}
@@ -49,6 +41,9 @@ export const HomePage = () => {
       >
         Search
       </Button>
+      <br></br>
+      <p>Search Result can see below!</p>
+      <SuggestionItem />
     </div>
   );
 };
